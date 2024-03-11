@@ -1,0 +1,9 @@
+
+    Create a Docker compose file to start up all the previous containers. This Docker Compose file will start the following systems:
+
+    TortoiseBot Gazebo simulation
+
+    Mapping nodes
+
+    RViz2 to visualize the mapping process
+
