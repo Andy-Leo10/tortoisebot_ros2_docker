@@ -1,1 +1,24 @@
-This Docker image will contain everything necessaary for starting the mapping system (including RViz2 for visualizing the map).
+# This Docker image will contain everything necessaary 
+# for starting the mapping system (including RViz2 for 
+# visualizing the map)
+
+# Start from ROS Galactic desktop image
+FROM osrf/ros:galactic-desktop
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    python3-rosinstall-generator \
+    python3-vcstool \
+    wget \
+    ros-galactic-teleop-twist-keyboard
+
+# Create an overlay Colcon workspace
+RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
+    && mkdir -p /ros2_ws/src \
+    && cd /ros2_ws \
+    && colcon build --symlink-install"
+
