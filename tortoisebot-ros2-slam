@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     ros-galactic-joint-state-publisher \
     ros-galactic-robot-state-publisher \
     ros-galactic-cartographer \
+    ros-galactic-cartographer-ros \
     ros-galactic-teleop-twist-keyboard
 
 # Create an overlay Colcon workspace
@@ -26,6 +27,7 @@ RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
     && mkdir -p /ros2_ws/src \
     && cd /ros2_ws \
     && colcon build --symlink-install"
+COPY /tortoisebot_slam/ /ros2_ws/src/tortoisebot_slam/
 COPY /ydlidar-ros2/ /ros2_ws/src/ydlidar-ros2/
 COPY /tortoisebot_control/ /ros2_ws/src/tortoisebot_control/
 COPY /tortoisebot_firmware/ /ros2_ws/src/tortoisebot_firmware/
@@ -34,7 +36,8 @@ COPY /ydlidar-ros2/ /ros2_ws/src/ydlidar-ros2/
 RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
     && cd /ros2_ws \
     && colcon build --symlink-install \
-    && source /ros2_ws/install/setup.bash"
+    && source /ros2_ws/install/setup.bash \
+    && echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc"
 # Set up the work directory
 WORKDIR /ros2_ws
 # Set up the entrypoint

@@ -35,7 +35,8 @@ COPY /ydlidar-ros2/ /ros2_ws/src/ydlidar-ros2/
 RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
     && cd /ros2_ws \
     && colcon build --symlink-install \
-    && source /ros2_ws/install/setup.bash"
+    && source /ros2_ws/install/setup.bash \
+    && echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc"
 
 # Set up the work directory
 WORKDIR /ros2_ws
