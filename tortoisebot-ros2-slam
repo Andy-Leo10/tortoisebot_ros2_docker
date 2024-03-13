@@ -14,6 +14,11 @@ RUN apt-get update && apt-get install -y \
     python3-rosinstall-generator \
     python3-vcstool \
     wget \
+    ros-galactic-xacro \
+    ros-galactic-urdf \
+    ros-galactic-joint-state-publisher \
+    ros-galactic-robot-state-publisher \
+    ros-galactic-cartographer \
     ros-galactic-teleop-twist-keyboard
 
 # Create an overlay Colcon workspace
@@ -21,4 +26,17 @@ RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
     && mkdir -p /ros2_ws/src \
     && cd /ros2_ws \
     && colcon build --symlink-install"
-
+COPY /ydlidar-ros2/ /ros2_ws/src/ydlidar-ros2/
+COPY /tortoisebot_control/ /ros2_ws/src/tortoisebot_control/
+COPY /tortoisebot_firmware/ /ros2_ws/src/tortoisebot_firmware/
+COPY /ydlidar-ros2/ /ros2_ws/src/ydlidar-ros2/
+# Build the workspace
+RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
+    && cd /ros2_ws \
+    && colcon build --symlink-install \
+    && source /ros2_ws/install/setup.bash"
+# Set up the work directory
+WORKDIR /ros2_ws
+# Set up the entrypoint
+# CMD /bin/bash -c "source /ros2_ws/install/setup.bash \
+#     && ros2 launch tortoisebot_slam cartographer.launch.py use_sim_time:=True"

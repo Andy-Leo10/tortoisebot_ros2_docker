@@ -19,8 +19,21 @@ services:
         volumes:
             - /tmp/.X11-unix:/tmp/.X11-unix
         networks:
-            - rosnet2
+            - ros-net2
         command: /bin/bash -c "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=True"
 
+    slam_server:
+        hostname: slam_server
+        build:
+            context: .
+            dockerfile: tortoisebot-ros2-slam
+        environment:
+            - DISPLAY
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+        networks:
+            - ros-net2
+        command: /bin/bash -c "sleep 12 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_slam cartographer.launch.py use_sim_time:=True"
+
 networks:
-    rosnet2:    
+    ros-net2:    
