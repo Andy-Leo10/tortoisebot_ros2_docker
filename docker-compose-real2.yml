@@ -25,5 +25,23 @@ services:
             - ros2-net-real
         command: /bin/bash -c "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=True"
 
+    control_server:
+        hostname: control
+        build:
+            context: .
+            dockerfile: tortoisebot-ros2-slam-real
+        container_name: control_container
+        environment:
+            - DISPLAY
+            - ROS_DOMAIN_ID=0
+        volumes:
+            - /dev:/dev
+            - /tmp/.X11-unix:/tmp/.X11-unix
+        privileged: true
+        tty: true
+        networks:
+            - ros2-net-real
+        command: /bin/bash -c "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 run teleop_twist_keyboard teleop_twist_keyboard"
+
 networks:
     ros2-net-real:
