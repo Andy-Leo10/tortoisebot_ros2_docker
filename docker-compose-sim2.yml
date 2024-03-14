@@ -10,9 +10,10 @@ version: '3.7'
 services:
     gazebo_server:
         hostname: gazebo_server
-        build:
-            context: .
-            dockerfile: tortoisebot-ros2-gazebo
+        # build:
+        #     context: .
+        #     dockerfile: tortoisebot-ros2-gazebo
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-gazebo
         container_name: gazebo_server
         environment:
             - DISPLAY
@@ -24,9 +25,10 @@ services:
 
     slam_server:
         hostname: slam_server
-        build:
-            context: .
-            dockerfile: tortoisebot-ros2-slam
+        # build:
+        #     context: .
+        #     dockerfile: tortoisebot-ros2-slam
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-slam
         environment:
             - DISPLAY
         volumes:
