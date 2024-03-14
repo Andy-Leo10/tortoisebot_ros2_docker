@@ -9,9 +9,11 @@ version: '3.7'
 services:
     bringup_server:
         hostname: bringup
-        build:
-            context: .
-            dockerfile: tortoisebot-ros2-real
+        # build:
+        #     context: .
+        #     dockerfile: tortoisebot-ros2-real
+        platform: linux/arm64
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-real
         container_name: bringup_container
         environment:
             - DISPLAY
@@ -27,9 +29,11 @@ services:
 
     control_server:
         hostname: control
-        build:
-            context: .
-            dockerfile: tortoisebot-ros2-slam-real
+        # build:
+        #     context: .
+        #     dockerfile: tortoisebot-ros2-slam-real
+        platform: linux/arm64
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-slam-real
         container_name: control_container
         environment:
             - DISPLAY

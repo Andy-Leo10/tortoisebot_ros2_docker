@@ -2,9 +2,7 @@
 # for starting the mapping system for the real robot
 
 # Start from ROS Galactic desktop image
-# FROM osrf/ros:galactic-desktop
-# with support for arm64 and amd64
-FROM --platform=linux/arm64,linux/amd64 osrf/ros:galactic-desktop
+FROM osrf/ros:galactic-desktop
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
