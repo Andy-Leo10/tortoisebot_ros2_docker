@@ -2,7 +2,9 @@
 # for starting the mapping system for the real robot
 
 # Start from ROS Galactic desktop image
-FROM osrf/ros:galactic-desktop
+# FROM osrf/ros:galactic-desktop
+# with support for arm64 and amd64
+FROM --platform=linux/arm64,linux/amd64 osrf/ros:galactic-desktop
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
@@ -13,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     python3-rosinstall-generator \
     python3-vcstool \
     wget \
+    ros-galactic-v4l2-camera \
     ros-galactic-xacro \
     ros-galactic-urdf \
     ros-galactic-joint-state-publisher \
