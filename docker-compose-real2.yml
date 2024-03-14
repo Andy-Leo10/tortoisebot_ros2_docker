@@ -1,0 +1,29 @@
+# Create a Docker compose file to start up all the 
+# previous containers. This Docker Compose file will 
+# start the following systems:
+
+# - starting all the real robot systems
+# - starting the mapping system
+
+version: '3.7'
+services:
+    bringup_server:
+        hostname: bringup
+        build:
+            context: .
+            dockerfile: tortoisebot-ros2-real
+        container_name: bringup_container
+        environment:
+            - DISPLAY
+            - ROS_DOMAIN_ID=0
+        volumes:
+            - /dev:/dev
+            - /tmp/.X11-unix:/tmp/.X11-unix
+        privileged: true
+        tty: true
+        networks:
+            - ros2-net-real
+        command: /bin/bash -c "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=True"
+
+networks:
+    ros2-net-real:

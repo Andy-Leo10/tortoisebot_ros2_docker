@@ -1,1 +1,43 @@
-This Docker image will contain everything necessaary for starting all the real robot systems, including the camera and laser.
+# This Docker image will contain everything necessaary 
+# for starting all the real robot systems, including 
+# the camera and laser
+
+# Start from ROS Galactic desktop image
+FROM osrf/ros:galactic-desktop
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    python3-rosinstall-generator \
+    python3-vcstool \
+    wget \
+    ros-galactic-xacro \
+    ros-galactic-urdf \
+    ros-galactic-joint-state-publisher \
+    ros-galactic-robot-state-publisher \
+    ros-galactic-cartographer \
+    ros-galactic-cartographer-ros \
+    ros-galactic-nav2* \
+    ros-galactic-gazebo-plugins \
+    ros-galactic-teleop-twist-keyboard
+
+# Create an overlay Colcon workspace and clone from git
+RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
+    && mkdir -p /ros2_ws/src \
+    && cd /ros2_ws \
+    && git clone -b ros2-galactic https://github.com/rigbetellabs/tortoisebot.git"
+# Build the workspace
+RUN /bin/bash -c "source /opt/ros/galactic/setup.bash \
+    && cd /ros2_ws \
+    && colcon build --symlink-install \
+    && source /ros2_ws/install/setup.bash \
+    && echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc"
+
+# Set up the work directory
+WORKDIR /ros2_ws
+# Set up the entrypoint
+# CMD /bin/bash -c "source /ros2_ws/install/setup.bash \
+#     && ros2 launch tortoisebot_bringup autobringup.launch.py use_sim_time:=False exploration:=True"
