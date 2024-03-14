@@ -12,7 +12,7 @@ services:
         # build:
         #     context: .
         #     dockerfile: tortoisebot-ros2-real
-        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-real-arm64
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-real
         container_name: bringup_container
         environment:
             - DISPLAY
@@ -31,7 +31,7 @@ services:
         # build:
         #     context: .
         #     dockerfile: tortoisebot-ros2-slam-real
-        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-slam-real-arm64
+        image: andyleo10/andres.alamo-cp22:tortoisebot-ros2-slam-real
         container_name: control_container
         environment:
             - DISPLAY
