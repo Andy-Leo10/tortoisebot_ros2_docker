@@ -24,7 +24,8 @@ services:
         tty: true
         networks:
             - ros2-net-real
-        command: /bin/bash -c "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=False"
+        entrypoint: ["/bin/bash", "-c"]
+        command: "sleep 2 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_bringup bringup.launch.py use_sim_time:=False"
 
     control_server:
         hostname: control
@@ -43,7 +44,8 @@ services:
         tty: true
         networks:
             - ros2-net-real
-        command: /bin/bash -c "sleep 12 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_description rviz.launch.py"
+        entrypoint: ["/bin/bash", "-c"]
+        command: "sleep 12 && source /opt/ros/galactic/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch tortoisebot_description rviz.launch.py"
 
 networks:
     ros2-net-real:
