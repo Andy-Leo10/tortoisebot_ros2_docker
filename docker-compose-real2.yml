@@ -7,7 +7,7 @@
 
 version: '3.7'
 services:
-    bringup_server:
+    bringup_and_slam_server:
         hostname: bringup
         build:
             context: .
