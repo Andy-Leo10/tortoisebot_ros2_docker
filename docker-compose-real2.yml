@@ -15,7 +15,8 @@ services:
         container_name: bringup_container
         environment:
             - DISPLAY
-            - ROS_DOMAIN_ID=0
+            - ROS_DOMAIN_ID=30
+            - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
         volumes:
             - /dev:/dev
             - /tmp/.X11-unix:/tmp/.X11-unix
@@ -33,7 +34,8 @@ services:
         container_name: control_container
         environment:
             - DISPLAY
-            - ROS_DOMAIN_ID=0
+            - ROS_DOMAIN_ID=30
+            - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
         volumes:
             - /dev:/dev
             - /tmp/.X11-unix:/tmp/.X11-unix
